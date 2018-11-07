@@ -99,4 +99,22 @@ public class PaymentPlanGeneratorApplicationTests {
 		
 	}
 	
+	@Test
+	public void testFive() throws Exception {
+     	
+		LoanData ld = new LoanData(20000,0.012,100,"2015-10-10");
+		
+		PaymentPlanTester ppt = new PaymentPlanTester();
+		
+		File file = ppt.getTestPaymentPlanFile(ld);
+		PaymentPlan ppFromFile = ppt.readPaymentPlanFromCsv( file );
+		
+		PaymentPlanGenerator ppg = new PaymentPlanGenerator(ld);
+		PaymentPlan pp = ppg.getPaymentPlan();
+		
+		if( !pp.equals(ppFromFile) )
+			fail("Payment plans do not match for"+ ld);
+		
+	}
+	
 }
