@@ -9,7 +9,6 @@
 .settings
 .springBeans
 .sts4-cache
-output/**
 
 ### IntelliJ IDEA ###
 .idea
@@ -24,4 +23,3 @@ output/**
 /dist/
 /nbdist/
 /.nb-gradle/
-output/**
