@@ -47,17 +47,16 @@ public class ServiceController {
 		LoanData ld= new LoanData(loanAmount,nominalRate*0.01,duration, startDate);
 		LoanDataValidator ldv = new LoanDataValidator(ld);
 		if( !ldv.validate() ) {
-			System.out.println("Incorrect loan data" + ldv.getErrorMsg() );
+			System.out.println("Incorrect loan data. " + ldv.getErrorMsg() );
 			return ldv.getErrorMsg();
-		}
-		
+		} 
 		
 		PaymentPlanGenerator ppg = new PaymentPlanGenerator(ld);
 		PaymentPlan pp = ppg.getPaymentPlan();
-		//System.out.println(pp);
+		
 		PaymentPlanJsonConvereter ppJsonConv = new PaymentPlanJsonConvereter(pp);
 		Object jsonPaymentPlan = ppJsonConv.getJsonPaymentPlan();
-		//System.out.println(jsonPaymentPlan);
+		
 		return jsonPaymentPlan;
 		
 	}
