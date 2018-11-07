@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.klezovich.payment_plan_generator.domain.LoanData;
+import com.klezovich.payment_plan_generator.domain.LoanDataValidator;
 import com.klezovich.payment_plan_generator.domain.PaymentPlan;
 import com.klezovich.payment_plan_generator.domain.PaymentPlanGenerator;
 import com.klezovich.payment_plan_generator.domain.PaymentPlanJsonConvereter;
@@ -38,10 +39,17 @@ public class ServiceController {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
+			return "Incorrect date format. Date must start with format 'YYYY-MM-DD\n"+
+			"For example 1990-10-10:18-00-00";
+			
 		}
 		
 		LoanData ld= new LoanData(loanAmount,nominalRate*0.01,duration, startDate);
+		LoanDataValidator ldv = new LoanDataValidator(ld);
+		if( !ldv.validate() ) {
+			System.out.println("Incorrect loan data" + ldv.getErrorMsg() );
+			return ldv.getErrorMsg();
+		}
 		
 		
 		PaymentPlanGenerator ppg = new PaymentPlanGenerator(ld);
