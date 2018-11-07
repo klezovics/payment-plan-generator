@@ -59,8 +59,10 @@ public class PaymentPlanPrinter {
 	private String calcPaymentPlanFileName() {
 
 		AppDateFormatter adf = new AppDateFormatter();
-		String fileName = "PaymentPlan_" + ld.getLoanAmount() + "_" + ld.getNominalRate() + "_" + ld.getDuration() + "_"
-				+ adf.format(ld.getStartDate());
+		AppDoubleFormatter aDoubleF = new AppDoubleFormatter();
+		
+		String fileName = "PaymentPlan_" + ld.getLoanAmount() + "_" + aDoubleF.format(ld.getNominalRate()) + "_" + ld.getDuration() + "_"
+				+ adf.format(ld.getStartDate()) + ".csv";
 		return fileName;
 	}
 	
