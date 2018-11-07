@@ -7,7 +7,18 @@ are implemented.
 The mandatory part uses only JavaSE and its standard classes, such as ArrayList. 
 The optional part uses SpringBoot.
 
-Here is the TABLE OF CONTENTS 
+To make life easier for those who will be checking my solution - I've made a brief video overview. 
+You can view it here - https://www.youtube.com/watch?v=eFPJymoWjBw&feature=youtu.be
+
+Please note that this is a PRIVATE video and only people with the URL can view it. 
+The only two places where this URL is posted - is in this README and in an e-mail to Lendico recruiter.
+
+Therefore, there is no risk that the text of the assignment will be "leaked". 
+Once I get feedback for the assignment, naturally, I will remove the video from Youtube, as I understand 
+how important it is for companies to keep their test assignments private. 
+
+
+Here is the TABLE OF CONTENTS for this file
 
 1. How to install the application 
 2. How to run the application 
