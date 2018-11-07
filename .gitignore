@@ -9,8 +9,7 @@
 .settings
 .springBeans
 .sts4-cache
-/output/**
-output/
+output/**
 
 ### IntelliJ IDEA ###
 .idea
