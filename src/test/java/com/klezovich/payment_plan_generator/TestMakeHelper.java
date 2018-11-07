@@ -9,10 +9,11 @@ import java.util.Date;
 import java.util.Scanner;
 
 import com.klezovich.payment_plan_generator.util.AppDateFormatter;
+import com.klezovich.payment_plan_generator.util.AppRegExpCollection;
 
 public class TestMakeHelper {
 
-	private static final String dateFormatRegExp = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
+	private static final String dateFormatRegExp = AppRegExpCollection.getDateFormatRegExp();
 
 	public static void main(String[] args) throws FileNotFoundException {
 
