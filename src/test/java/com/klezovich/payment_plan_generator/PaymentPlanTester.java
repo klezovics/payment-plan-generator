@@ -19,7 +19,7 @@ public class PaymentPlanTester {
 		
 		AppDateFormatter adf = new AppDateFormatter();
 		
-		String filePath = testPaymentPlanFileDir + "//PaymentPlan_"+ld.getLoanAmount()+"_"+ld.getNominalRate()+"_"+ld.getDuration()+"_"+adf.format(ld.getStartDate());
+		String filePath = testPaymentPlanFileDir + "//PaymentPlan_"+ld.getLoanAmount()+"_"+ld.getNominalRate()+"_"+ld.getDuration()+"_"+adf.format(ld.getStartDate())+".csv";
 		return new File(filePath);
 		
 	}
