@@ -29,7 +29,7 @@ public class DesktopApp {
 			
 			System.out.println("Please provide the following input parameters separated by a space");
 			System.out.println("Loan amount (integer), nominal rate as percentage (double), duration (in months), start date (YYYY-MM-DD) ");
-			System.out.println("Sample input:'5000 5.0 24 2017-12-29'");
+			System.out.println("Sample input:'5000 5.0 24 2017-12-25'");
 			
 			Scanner in = new Scanner(System.in);
 			
@@ -54,7 +54,7 @@ public class DesktopApp {
 			
 			LoanDataValidator ldv = new LoanDataValidator(loanData);
 			if( !ldv.validate() ) {
-				System.out.println("Incorrect loan data" + ldv.getErrorMsg() );
+				System.out.println("Incorrect loan data. " + ldv.getErrorMsg() );
 				return;
 			}
 			
