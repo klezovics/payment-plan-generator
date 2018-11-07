@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import com.klezovich.payment_plan_generator.domain.LoanData;
+import com.klezovich.payment_plan_generator.domain.LoanDataValidator;
 import com.klezovich.payment_plan_generator.domain.PaymentPlan;
 import com.klezovich.payment_plan_generator.domain.PaymentPlanGenerator;
 import com.klezovich.payment_plan_generator.util.AppDateFormatter;
@@ -52,6 +53,12 @@ public class DesktopApp {
 			// It is better if internally we store the nominal rate as a fraction, 
 			// for example 5% is stored as 0.05, 21% is stored as 0.21. This simplifies calculations
 			LoanData loanData = new LoanData(loanAmount, nominalRate*0.01, duration, startDate);
+			
+			LoanDataValidator ldv = new LoanDataValidator(loanData);
+			if( !ldv.validate() ) {
+				System.out.println("Incorrect loan data" + ldv.getErrorMsg() );
+				return;
+			}
 			
 			//System.out.println("\n\n");
 			//System.out.println(loanData);
