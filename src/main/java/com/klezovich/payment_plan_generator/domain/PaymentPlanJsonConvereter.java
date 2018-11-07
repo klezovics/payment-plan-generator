@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.klezovich.payment_plan_generator.util.AppDoubleFormatter;
+
 public class PaymentPlanJsonConvereter {
 
 	PaymentPlan pp;
@@ -46,7 +48,7 @@ public class PaymentPlanJsonConvereter {
 	
 	private MonthlyPaymentDetailJson convertMpdToJsonMpd( PaymentPlan.MonthlyPaymentDetail mpd ) {
 		MonthlyPaymentDetailJson mpdJson = new MonthlyPaymentDetailJson();
-		DecimalFormat df = new DecimalFormat("0.00");
+		AppDoubleFormatter df = new AppDoubleFormatter();
 		
 		mpdJson.borrowerPaymentAmount = df.format(mpd.getPaymentAmount());
 		mpdJson.date = mpd.getPaymentDate();

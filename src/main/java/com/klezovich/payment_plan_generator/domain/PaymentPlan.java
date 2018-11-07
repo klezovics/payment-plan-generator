@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.klezovich.payment_plan_generator.util.AppDateFormatter;
+import com.klezovich.payment_plan_generator.util.AppDoubleFormatter;
 import com.klezovich.payment_plan_generator.domain.PaymentPlan;
 
 public class PaymentPlan {
@@ -66,7 +67,7 @@ public class PaymentPlan {
 		public String toCSV() {
 			
 			AppDateFormatter dateFormat = new AppDateFormatter();
-			DecimalFormat df = new DecimalFormat("0.00"); 
+			AppDoubleFormatter df = new AppDoubleFormatter(); 
 			
 			return dateFormat.format(paymentDate) +","+df.format(paymentAmount)+","+df.format(principal)+","+df.format(interest)+","+df.format(initialOutstandingPrincipal)+","+df.format(Math.abs(remainingOutstandingPrincipal));
 		}
@@ -77,7 +78,7 @@ public class PaymentPlan {
 		public String toString() {
 			
 			AppDateFormatter dateFormatter = new AppDateFormatter();
-			DecimalFormat df = new DecimalFormat(" 0.00"); 
+			AppDoubleFormatter df = new AppDoubleFormatter(); 
 
 			
 			return "MonthlyPaymentDetail "

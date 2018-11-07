@@ -6,7 +6,7 @@ public class AppDoubleFormatter {
 
 	 private DecimalFormat df = new DecimalFormat("#.##");
 
-	 String format( Double d ) {
+	 public String format( Double d ) {
 		return df.format(d);
 	 }
 	
