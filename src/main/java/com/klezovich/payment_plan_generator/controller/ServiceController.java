@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,9 @@ import com.klezovich.payment_plan_generator.util.AppDateFormatter;
 @Controller
 public class ServiceController {
 
-	@PostMapping("/generate-plan")
+	private final String url = "/generate-plan";
+	
+	@PostMapping(url)
 	@ResponseBody
 	public Object sendPaymentPlan(
 			@RequestParam(name="loanAmount", required=true) Integer loanAmount,
@@ -45,8 +48,8 @@ public class ServiceController {
 		LoanData ld= new LoanData(loanAmount,nominalRate*0.01,duration, startDate);
 		LoanDataValidator ldv = new LoanDataValidator(ld);
 		if( !ldv.validate() ) {
-			System.out.println("Incorrect loan data. " + ldv.getErrorMsg() );
-			return ldv.getErrorMsg();
+			ApiError err = new ApiError( new Date(), HttpStatus.BAD_REQUEST.toString(), ldv.getErrorMsg(),url);
+			return err;
 		} 
 		
 		PaymentPlanGenerator ppg = new PaymentPlanGenerator(ld);

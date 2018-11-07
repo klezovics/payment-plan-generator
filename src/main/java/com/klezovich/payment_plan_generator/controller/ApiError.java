@@ -1,27 +1,52 @@
 package com.klezovich.payment_plan_generator.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
 public class ApiError {
-	 
-    private HttpStatus status;
+	
+	private Date timestamp;
+    private String status;
     private String message;
-    private List<String> errors;
- 
-    public ApiError(HttpStatus status, String message, List<String> errors) {
-        super();
-        this.status = status;
-        this.message = message;
-        this.errors = errors;
-    }
- 
-    public ApiError(HttpStatus status, String message, String error) {
-        super();
-        this.status = status;
-        this.message = message;
-        errors = Arrays.asList(error);
-    }
+    String  path;
+    
+	public Date getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus( String status) {
+		this.status = status;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public ApiError(Date timestamp, String status, String message, String path) {
+		super();
+		this.timestamp = timestamp;
+		this.status = status;
+		this.message = message;
+		this.path = path;
+	}
+    
+    
+
+    
 }
