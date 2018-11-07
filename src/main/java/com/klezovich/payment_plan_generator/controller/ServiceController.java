@@ -19,8 +19,6 @@ import com.klezovich.payment_plan_generator.util.AppDateFormatter;
 @Controller
 public class ServiceController {
 
-	private static final String dateFormatRegExp = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
-	
 	@PostMapping("/generate-plan")
 	@ResponseBody
 	public Object sendPaymentPlan(

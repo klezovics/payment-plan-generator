@@ -13,6 +13,7 @@ import com.klezovich.payment_plan_generator.domain.LoanDataValidator;
 import com.klezovich.payment_plan_generator.domain.PaymentPlan;
 import com.klezovich.payment_plan_generator.domain.PaymentPlanGenerator;
 import com.klezovich.payment_plan_generator.util.AppDateFormatter;
+import com.klezovich.payment_plan_generator.util.AppRegExpCollection;
 import com.klezovich.payment_plan_generator.util.PaymentPlanPrinter;
 
 /**
@@ -23,9 +24,6 @@ public class DesktopApp {
 	
 	// Name of the directory into which the file is saved
 	private static final Path outFileDir = Paths.get(System.getProperty("user.dir")+"\\output");
-	
-	//Regular expression for reading the loan start date from input
-	private static final String dateFormatRegExp = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
 	
 	public static void main(String[] args) {
 			
@@ -44,7 +42,7 @@ public class DesktopApp {
 			AppDateFormatter apf = new AppDateFormatter();
 			
 			try {
-			  dateString = in.next(dateFormatRegExp);
+			  dateString = in.next( AppRegExpCollection.getDateFormatRegExp() );
 			  startDate = apf.getFormatter().parse(dateString);
 			}catch( Exception e ) {
 				System.out.println("Incorrect date format, please use YYYY-MM-DD, for example '2017-12-26'" );
