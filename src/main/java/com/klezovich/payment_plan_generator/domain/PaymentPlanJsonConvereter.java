@@ -51,7 +51,7 @@ public class PaymentPlanJsonConvereter {
 		mpdJson.borrowerPaymentAmount = df.format(mpd.getPaymentAmount());
 		mpdJson.date = mpd.getPaymentDate();
 		mpdJson.initialOutstandingPrinciple = df.format(mpd.getInitialOutstandingPrincipal());
-		System.out.println("Norm:"+mpd.getInitialOutstandingPrincipal()+"Json:"+mpdJson.initialOutstandingPrinciple);
+		//System.out.println("Norm:"+mpd.getInitialOutstandingPrincipal()+"Json:"+mpdJson.initialOutstandingPrinciple);
 		mpdJson.interest = df.format(mpd.getInterest());
 		mpdJson.principal = df.format( mpd.getPrincipal() );
 		mpdJson.remainingOutstandingPrinciple = df.format( Math.abs(mpd.getRemainingOutstandingPrincipal()) );

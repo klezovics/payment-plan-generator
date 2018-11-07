@@ -46,10 +46,10 @@ public class ServiceController {
 		
 		PaymentPlanGenerator ppg = new PaymentPlanGenerator(ld);
 		PaymentPlan pp = ppg.getPaymentPlan();
-		System.out.println(pp);
+		//System.out.println(pp);
 		PaymentPlanJsonConvereter ppJsonConv = new PaymentPlanJsonConvereter(pp);
 		Object jsonPaymentPlan = ppJsonConv.getJsonPaymentPlan();
-		System.out.println(jsonPaymentPlan);
+		//System.out.println(jsonPaymentPlan);
 		return jsonPaymentPlan;
 		
 	}

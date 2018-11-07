@@ -1,0 +1,146 @@
+=== Introduction === 
+
+This is an implementation of a technical challenge for lendico. 
+Both the mandatory part ( creating a payment plan for a loan ) and the optional part ( exposing this functionality as a web service ) 
+are implemented.
+
+The mandatory part uses only JavaSE and its standard classes, such as ArrayList. 
+The optional part uses SpringBoot.
+
+Here is the TABLE OF CONTENTS 
+
+1. How to install the application 
+2. How to run the application 
+3. Discussion of application architecture for the mandatory part ( creating a payment plan for a loan ) 
+4. Discussion of the application architecture for the optional part ( creating a web service ) 
+5. Discussion of testing 
+
+
+=== 1. How to install the application ===
+
+1. Clone the application from its GitHub repository - https://github.com/klezovics/payment-plan-generator
+2. Import it into your IDE 
+3. Right click on the project -> Select 'Maven' -> Select 'Update Project' 
+4. Right click on the project -> Select 'Run As' -> Select 'Maven Install' 
+
+=== 2. How to run the application ==== 
+
+== 2.1 Running the mandatory part ==
+
+1. Go to the package 'com.klezovich.payment_plan_generator'
+2. Open the 'DesktopApp.java' class in your IDE 
+3. Run it as a Java application, like you would run any Java class with a main method 
+4. The command line will prompt you for input. An example of an input is given  
+5. Provide the input 
+6. The output will be printed to the command line 
+7. A file with the output will also be printed to the 'output' directory, which is a top level directory. 
+   This means that this directory is located in the same directory as the 'pom.xml' file 
+8. A path to this file will also be printed to the command line 
+
+Here are the command line input and output after a single execution ... 
+The 'Program Output >>' and 'User Input>>' tokens in the code below are NOT part of the 
+actual user input or output, but are my comments just to make clear what is the input and what is the output  
+
+Program Output>> Please provide the following input parameters separated by a space
+Program Output>> Loan amount (integer), nominal rate as percentage (double), duration (in months), start date (YYYY-MM-DD) 
+Program Output>> Sample input:'5000 5.0 24 2017-12-29'
+User Input >> 5000 5.0 24 2017-12-29 
+
+
+Program Output>> The payment plan for these parameters is:
+
+Program Output>> PaymentDate,PaymentAmount,Principal,Interest,initialOutstandingPrincipal,remainingOutstandingPrincipal
+Program Output>> 2018-01-29,219.36,198.52,20.83,5000.00,4801.48
+Program Output>> 2018-02-28,219.36,199.35,20.01,4801.48,4602.13
+Program Output>> 2018-03-29,219.36,200.18,19.18,4602.13,4401.94
+Program Output>> 2018-04-29,219.36,201.02,18.34,4401.94,4200.93
+Program Output>> 2018-05-29,219.36,201.85,17.50,4200.93,3999.08
+Program Output>> 2018-06-29,219.36,202.69,16.66,3999.08,3796.38
+Program Output>> 2018-07-29,219.36,203.54,15.82,3796.38,3592.84
+Program Output>> 2018-08-29,219.36,204.39,14.97,3592.84,3388.46
+Program Output>> 2018-09-29,219.36,205.24,14.12,3388.46,3183.22
+Program Output>> 2018-10-29,219.36,206.09,13.26,3183.22,2977.12
+Program Output>> 2018-11-29,219.36,206.95,12.40,2977.12,2770.17
+Program Output>> 2018-12-29,219.36,207.81,11.54,2770.17,2562.36
+Program Output>> 2019-01-29,219.36,208.68,10.68,2562.36,2353.68
+Program Output>> 2019-02-28,219.36,209.55,9.81,2353.68,2144.13
+Program Output>> 2019-03-29,219.36,210.42,8.93,2144.13,1933.70
+Program Output>> 2019-04-29,219.36,211.30,8.06,1933.70,1722.40
+Program Output>> 2019-05-29,219.36,212.18,7.18,1722.40,1510.22
+Program Output>> 2019-06-29,219.36,213.06,6.29,1510.22,1297.16
+Program Output>> 2019-07-29,219.36,213.95,5.40,1297.16,1083.21
+Program Output>> 2019-08-29,219.36,214.84,4.51,1083.21,868.36
+Program Output>> 2019-09-29,219.36,215.74,3.62,868.36,652.62
+Program Output>> 2019-10-29,219.36,216.64,2.72,652.62,435.99
+Program Output>> 2019-11-29,219.36,217.54,1.82,435.99,218.45
+Program Output>> 2019-12-29,219.36,218.45,0.91,218.45,0.00
+
+Program Output>> Output saved to file:C:\Users\klezo\Desktop\import\output\PaymentPlan_5000_0.05_24_2017-12-29
+
+Each payment plan file name has the following structure PaymentPlan_(loan Amount)_(nominalRate)_(duration)_(startDate)
+ 
+== 2.2 Running the optional part ==
+
+1. Go to the package 'com.klezovich.payment_plan_generator' 
+2. Right click on the 'PaymentPlanGeneratorApplication' 
+3. Select 'Run As' -> 'Spring Boot App' 
+4. This will start the server 
+5. You can now send POST request to http://localhost:8080/generate-plan
+6. This can be done by using for example the 'Postman' Chrome extension 
+7. From within this 'Postman' Chrome extension you will also be able to view the results in JSON format 
+
+=== 3. Discussion of the application architecture for the mandatory part === 
+
+The main class for this is the DesktopApp.java class ( 'com.klezovich.payment_plan_generator' package). 
+This class start the application, gets the input from the user and then uses certain domain classes 
+to achieve this objective. 
+
+The key domain classes are the following (all are resident in the 'com.klezovich.payment_plan_generator.domain' package) :
+1. LoanData - stores the four parameters which define a loan 
+2. PaymentPlan - stores the payment plan information 
+3. PaymentPlan.MonthlyPaymentDetail - stores the information for the monthly payment detail 
+4. PaymentPlanGenerator -> takes a LoanData object as input and produces a PaymentPlan object if you call the relevant method. 
+
+The 'PaymentPlan' classes implements the formula for loan calculation from here (http://financeformulas.net/Annuity_Payment_Formula.html)
+and contains internally a list of PaymentPlan.MonthlyPayment detail objects. 
+
+To print a 'PaymentPlan' object to a CSV format the 'PaymentPlanPrinter' class is used from the 'com.klezovich.payment_plan_generator.util' package.
+
+=== 4. Discussion of the application architecture for the optional part === 
+
+In order to implement the optional part - SpringBoot is used. 
+The key class is 'ServiceController' ('com.klezovich.payment_plan_generator.controller' package )
+It has a single method, which processes POST requests. 
+
+POST request parameters are obtained as input arguments to this method. They are stored in a LoanData object.
+Then a PaymentPlanGenerator is used. 
+
+Then a PaymentPlanJsonCoverter object is used to convert the PaymentPlan object into a 
+a list of MonthlyPaymentDetailJson. This is done to match the output (field names and their type ) to the requirements 
+in the PDF of this task. 
+
+You cannot just send a PaymentPlan object, because it stores data (such as interest for each month) as doubles, but the 
+requirements for the optional part, for example, require that the JSON response contain doubles rounded to the second 
+digit after the comma. 
+
+
+=== 5. Discussion of testing === 
+
+To run test for this project you need to do the following:  
+
+1. Go to /src/test/java 
+2. Open the com.klezovich.payment_plan_generator package there 
+3. It will contain a class called 'PaymentPlanGeneratorApplicationTests.java'
+4. Right click on it ->  Run As -> 'JUnit Test'
+5. This will run the tests
+
+Here's how testing works ... 
+
+1. A set of input parameters is given 
+2. A file from the 'src/test/resources/test_payment_plans' directory is loaded.
+This is a CSV file, which contains payment plan data. This file is 
+constructed NOT by the application. It contains premade test data, which is known to be correct. 
+A 'PaymentPlan' object is contructed out of this CSV file. 
+
+3. A payment plan is contstucted by using the 'PaymentPlanGeneator' class 
+4. The two payment plans are compared by using the overriden .equals() method  
