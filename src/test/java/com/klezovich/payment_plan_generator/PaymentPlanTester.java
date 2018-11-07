@@ -86,6 +86,7 @@ public class PaymentPlanTester {
 		return mpd;
 	}
 	
+	// This method is used for a quick local test of the class functionality
 	public static void main(String[] args)  {
 		
 		System.out.println("Starting test");
